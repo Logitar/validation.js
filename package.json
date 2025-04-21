@@ -1,0 +1,43 @@
+{
+  "name": "logitar-validation",
+  "version": "1.0.0",
+  "description": "JavaScript validation library distributed by Logitar.",
+  "keywords": [
+    "logitar",
+    "validation"
+  ],
+  "homepage": "https://www.francispion.ca/",
+  "bugs": {
+    "url": "https://github.com/Logitar/validation.js/issues"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Francis Pion",
+    "email": "francispion@hotmail.com",
+    "url": "https://www.francispion.ca/"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "./dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Logitar/validation.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run --coverage",
+    "test:dev": "vitest",
+    "format": "prettier --write src/"
+  },
+  "devDependencies": {
+    "@vitest/coverage-v8": "^3.1.2",
+    "prettier": "^3.5.3",
+    "typescript": "^5.8.3",
+    "vitest": "^3.1.2"
+  },
+  "dependencies": {
+    "logitar-js": "^1.0.1"
+  }
+}
