@@ -1,4 +1,4 @@
-name: Publish Logitar.js NPM package
+name: Publish Logitar Validation.js NPM package
 
 on:
   release:
@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    name: Publish Logitar.js NPM package
+    name: Publish Logitar Validation.js NPM package
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
