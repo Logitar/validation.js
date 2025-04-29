@@ -10,14 +10,8 @@ describe("url", () => {
     expect(outcome.message).toBe("{{name}} must be a string.");
   });
 
-  test.each(["", "   "])("should return invalid when the value is empty or white-space", (value) => {
+  test.each(["    ", "invalid-url"])("should return invalid when the value is not a valid URL", (value) => {
     const outcome = url(value) as RuleExecutionOutcome;
-    expect(outcome.severity).toBe("error");
-    expect(outcome.message).toBe("{{name}} cannot be an empty string.");
-  });
-
-  it.concurrent("should return invalid when the value is not a valid URL", () => {
-    const outcome = url("invalid-url") as RuleExecutionOutcome;
     expect(outcome.severity).toBe("error");
     expect(outcome.message).toBe("{{name}} must be a valid URL.");
   });
@@ -37,6 +31,7 @@ describe("url", () => {
   });
 
   test.each([
+    ["", undefined],
     ["http://example.com", undefined],
     ["http://example.com", "http,https"],
     ["http://example.com", "http;https"],

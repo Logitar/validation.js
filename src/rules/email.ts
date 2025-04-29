@@ -14,21 +14,23 @@ const email: ValidationRule = (value: unknown, args: unknown): RuleExecutionOutc
     return { severity: "error", message: "{{name}} must be a string." };
   }
 
-  let isArgsValid: boolean = true;
-  let regex: RegExp;
-  if (typeof args === "string" || args instanceof RegExp) {
-    regex = new RegExp(args);
-  } else {
-    regex = new RegExp(defaultRegex);
-    if (typeof args !== "undefined" && typeof args !== "boolean") {
-      isArgsValid = false;
+  if (value.length > 0) {
+    let isArgsValid: boolean = true;
+    let regex: RegExp;
+    if (typeof args === "string" || args instanceof RegExp) {
+      regex = new RegExp(args);
+    } else {
+      regex = new RegExp(defaultRegex);
+      if (typeof args !== "undefined" && typeof args !== "boolean") {
+        isArgsValid = false;
+      }
     }
-  }
 
-  if (!regex.test(value)) {
-    return { severity: "error", message: "{{name}} must be a valid email address." };
-  } else if (!isArgsValid) {
-    return { severity: "warning", message: "The arguments must be undefined, or a valid email address validation regular expression." };
+    if (!regex.test(value)) {
+      return { severity: "error", message: "{{name}} must be a valid email address." };
+    } else if (!isArgsValid) {
+      return { severity: "warning", message: "The arguments must be undefined, or a valid email address validation regular expression." };
+    }
   }
 
   return { severity: "information" };
