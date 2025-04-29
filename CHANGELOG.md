@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Nothing yet.
 
+## [1.0.2] - 2025-04-28
+
+### Fixed
+
+- `url` now accepts boolean arguments.
+
 ## [1.0.1] - 2025-04-28
 
 ### Fixed
@@ -21,6 +27,7 @@ Nothing yet.
 
 - Implemented Validator, message formatting and validation rules.
 
-[unreleased]: https://github.com/Logitar/js/compare/v1.0.1...HEAD
+[unreleased]: https://github.com/Logitar/js/compare/v1.0.2...HEAD
+[1.0.2]: https://github.com/Logitar/js/compare/v1.0.1...v1.0.2
 [1.0.1]: https://github.com/Logitar/js/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/Logitar/js/releases/tag/v1.0.0

@@ -27,7 +27,7 @@ const url: ValidationRule = (value: unknown, args: unknown): RuleExecutionOutcom
   if (value.length > 0) {
     let isArgsValid: boolean = true;
     const protocols: Set<string> = new Set(["http", "https"]);
-    if (typeof args !== "undefined") {
+    if (typeof args !== "undefined" && typeof args !== "boolean") {
       let values: string[] = [];
       if (typeof args === "string") {
         values = args.split(/[,;\|]/);
@@ -37,6 +37,7 @@ const url: ValidationRule = (value: unknown, args: unknown): RuleExecutionOutcom
       if (values.length === 0) {
         isArgsValid = false;
       } else {
+        protocols.clear();
         values.forEach((value) => protocols.add(format(value)));
       }
     }
