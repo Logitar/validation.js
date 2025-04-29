@@ -32,7 +32,9 @@ describe("url", () => {
 
   test.each([
     ["", undefined],
+    ["", false],
     ["http://example.com", undefined],
+    ["http://example.com", true],
     ["http://example.com", "http,https"],
     ["http://example.com", "http;https"],
     ["https://example.com", "http|https"],
