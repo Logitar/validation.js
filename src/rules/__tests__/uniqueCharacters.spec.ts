@@ -5,7 +5,7 @@ import { RuleExecutionOutcome } from "../../types";
 
 describe("uniqueCharacters", () => {
   test.each([undefined, null, {}, [], true, 0, 0n])("should return invalid when the value is not a string", (value) => {
-    const outcome = uniqueCharacters(value) as RuleExecutionOutcome;
+    const outcome = uniqueCharacters(value, 10) as RuleExecutionOutcome;
     expect(outcome.severity).toBe("error");
     expect(outcome.message).toBe("{{name}} must be a string.");
   });
@@ -24,6 +24,12 @@ describe("uniqueCharacters", () => {
 
   it.concurrent("should return valid when the value has enough unique characters", () => {
     const outcome = uniqueCharacters("AAaa!!11", 4) as RuleExecutionOutcome;
+    expect(outcome.severity).toBe("information");
+    expect(outcome.message).toBeUndefined();
+  });
+
+  it.concurrent("should return valid when the value is an empty string", () => {
+    const outcome = uniqueCharacters("", 10) as RuleExecutionOutcome;
     expect(outcome.severity).toBe("information");
     expect(outcome.message).toBeUndefined();
   });

@@ -31,8 +31,6 @@ describe("url", () => {
   });
 
   test.each([
-    ["", undefined],
-    ["", false],
     ["http://example.com", undefined],
     ["http://example.com", true],
     ["http://example.com", "http,https"],
@@ -45,5 +43,14 @@ describe("url", () => {
     expect(outcome.message).toBeUndefined();
   });
 
-  test.each([])("should return valid when the value is a valid URL with an allowed protocol", (value) => {});
+  test.each([])("should return valid when the value is a valid URL with an allowed protocol", () => {});
+
+  test.each([
+    ["", undefined],
+    ["", false],
+  ])("should return valid when the value is an empty string", (value, args) => {
+    const outcome = url(value, args) as RuleExecutionOutcome;
+    expect(outcome.severity).toBe("information");
+    expect(outcome.message).toBeUndefined();
+  });
 });

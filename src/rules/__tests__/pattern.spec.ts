@@ -7,7 +7,7 @@ const pattern = /^[ABCEGHJ-NPRSTVXY]\d[ABCEGHJ-NPRSTV-Z][ -]?\d[ABCEGHJ-NPRSTV-Z
 
 describe("pattern", () => {
   test.each([undefined, null, {}, [], true, 0, 0n])("should return invalid when the value is not a string", (value) => {
-    const outcome = rule(value) as RuleExecutionOutcome;
+    const outcome = rule(value, pattern) as RuleExecutionOutcome;
     expect(outcome.severity).toBe("error");
     expect(outcome.message).toBe("{{name}} must be a string.");
   });
@@ -22,6 +22,12 @@ describe("pattern", () => {
     const outcome = rule(value, pattern) as RuleExecutionOutcome;
     expect(outcome.severity).toBe("error");
     expect(outcome.message).toBe("{{name}} must match the pattern {{pattern}}.");
+  });
+
+  it.concurrent("should return valid when the value is an empty string", () => {
+    const outcome = rule("", pattern) as RuleExecutionOutcome;
+    expect(outcome.severity).toBe("information");
+    expect(outcome.message).toBeUndefined();
   });
 
   test.each(["H2X3Y2", "H2X 3Y2", "H2X-3Y2"])("should return valid when the value matches the pattern", (value) => {

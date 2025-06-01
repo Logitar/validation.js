@@ -5,7 +5,7 @@ import { RuleExecutionOutcome } from "../../types";
 
 describe("containsDigits", () => {
   test.each([undefined, null, {}, [], true, 0, 0n])("should return invalid when the value is not a string", (value) => {
-    const outcome = containsDigits(value) as RuleExecutionOutcome;
+    const outcome = containsDigits(value, 10) as RuleExecutionOutcome;
     expect(outcome.severity).toBe("error");
     expect(outcome.message).toBe("{{name}} must be a string.");
   });
@@ -33,6 +33,12 @@ describe("containsDigits", () => {
     ["AAaa!!11", "2"],
   ])("should return valid when the value contains enough digits", (value, args) => {
     const outcome = containsDigits(value, args) as RuleExecutionOutcome;
+    expect(outcome.severity).toBe("information");
+    expect(outcome.message).toBeUndefined();
+  });
+
+  it.concurrent("should return valid when the value is an empty string", () => {
+    const outcome = containsDigits("", 10) as RuleExecutionOutcome;
     expect(outcome.severity).toBe("information");
     expect(outcome.message).toBeUndefined();
   });

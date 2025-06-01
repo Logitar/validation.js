@@ -10,12 +10,6 @@ describe("identifier", () => {
     expect(outcome.message).toBe("{{name}} must be a string.");
   });
 
-  it.concurrent("should return invalid when the value is an empty string", () => {
-    const outcome = identifier("") as RuleExecutionOutcome;
-    expect(outcome.severity).toBe("error");
-    expect(outcome.message).toBe("{{name}} cannot be an empty string.");
-  });
-
   it.concurrent("should return invalid when the value starts with a digit", () => {
     const outcome = identifier("123") as RuleExecutionOutcome;
     expect(outcome.severity).toBe("error");
@@ -30,6 +24,12 @@ describe("identifier", () => {
 
   test.each(["_valid", "valid_123", "valid"])("should return valid when the value is a valid identifier", (value) => {
     const outcome = identifier(value) as RuleExecutionOutcome;
+    expect(outcome.severity).toBe("information");
+    expect(outcome.message).toBeUndefined();
+  });
+
+  it.concurrent("should return valid when the value is an empty string", () => {
+    const outcome = identifier("") as RuleExecutionOutcome;
     expect(outcome.severity).toBe("information");
     expect(outcome.message).toBeUndefined();
   });

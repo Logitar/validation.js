@@ -13,11 +13,11 @@ const minimumLength: ValidationRule = (value: unknown, args: unknown): RuleExecu
   }
 
   if (typeof value === "string") {
-    if (value.length < minimumLength) {
+    if (value.length > 0 && value.length < minimumLength) {
       return { severity: "error", message: "{{name}} must be at least {{minimumLength}} character(s) long." };
     }
   } else if (Array.isArray(value)) {
-    if (value.length < minimumLength) {
+    if (value.length > 0 && value.length < minimumLength) {
       return { severity: "error", message: "{{name}} must contain at least {{minimumLength}} element(s)." };
     }
   } else {
