@@ -1,8 +1,9 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, test } from "vitest";
 
 import Validator from "../validator";
 import containsNonAlphanumeric from "../rules/containsNonAlphanumeric";
 import email from "../rules/email";
+import minimumValue from "../rules/minimumValue";
 import required from "../rules/required";
 import type {
   RuleConfiguration,
@@ -292,5 +293,21 @@ describe("Validator", () => {
     expect(result.rules.notEmpty.name).toBe("'email'");
     expect(result.rules.notEmpty.value).toBe("");
     expect(JSON.stringify(result.rules.notEmpty.custom)).toBe(JSON.stringify({ value: "   ", trimmed: "" }));
+  });
+
+  test.each([0, -0])("should succeed when validation rules arguments are 0 (number)", (args) => {
+    const validator = new Validator();
+    validator.setRule("minimumValue", minimumValue);
+    const result: ValidationResult = validator.validate("age", 0, { minimumValue: args });
+    expect(result.isValid).toBe(true);
+    expect(result.rules.minimumValue.severity).toBe("information");
+  });
+
+  it.concurrent("should succeed when validation rules arguments are 0 (BigInt)", () => {
+    const validator = new Validator();
+    validator.setRule("minimumValue", minimumValue);
+    const result: ValidationResult = validator.validate("age", 0, { minimumValue: BigInt(0) });
+    expect(result.isValid).toBe(true);
+    expect(result.rules.minimumValue.severity).toBe("information");
   });
 });

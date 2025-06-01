@@ -187,7 +187,8 @@ class Validator {
       }
 
       const args: unknown = rules[key];
-      if (!args) {
+      if (typeof args === "undefined" || args === null || args === false || args === "" || (typeof args === "number" && isNaN(args))) {
+        // NOTE(fpion): 0, -0 and 0n (BigInt) are considered valid arguments.
         continue;
       }
 
