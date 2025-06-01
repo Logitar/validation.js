@@ -7,7 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-Nothing yet.
+### Fixed
+
+- Empty strings are now valid in every rule validating strings, except `required`. This is technically a _breaking change_, but is not _change_ per say because it should have been done since the beginning.
 
 ## [1.0.2] - 2025-04-28
 

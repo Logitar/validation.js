@@ -11,18 +11,18 @@ const { isLetterOrDigit } = stringUtils;
  * @returns The result of the validation rule execution.
  */
 const containsNonAlphanumeric: ValidationRule = (value: unknown, args: unknown): RuleExecutionOutcome => {
-  if (typeof value !== "string") {
-    return { severity: "error", message: "{{name}} must be a string." };
-  }
-
   const requiredNonAlphanumeric: number = Number(args);
   if (isNaN(requiredNonAlphanumeric) || requiredNonAlphanumeric <= 0) {
     return { severity: "warning", message: "The arguments should be a positive number." };
   }
 
-  const nonAlphanumeric: number = [...value].filter((c) => !isLetterOrDigit(c)).length;
-  if (nonAlphanumeric < requiredNonAlphanumeric) {
-    return { severity: "error", message: "{{name}} must contain at least {{containsNonAlphanumeric}} non-alphanumeric character(s)." };
+  if (typeof value !== "string") {
+    return { severity: "error", message: "{{name}} must be a string." };
+  } else if (value.length > 0) {
+    const nonAlphanumeric: number = [...value].filter((c) => !isLetterOrDigit(c)).length;
+    if (nonAlphanumeric < requiredNonAlphanumeric) {
+      return { severity: "error", message: "{{name}} must contain at least {{containsNonAlphanumeric}} non-alphanumeric character(s)." };
+    }
   }
 
   return { severity: "information" };

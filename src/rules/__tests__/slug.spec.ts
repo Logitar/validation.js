@@ -27,4 +27,10 @@ describe("slug", () => {
     expect(outcome.severity).toBe("information");
     expect(outcome.message).toBeUndefined();
   });
+
+  it.concurrent("should return valid when the value is an empty string", () => {
+    const outcome = slug("") as RuleExecutionOutcome;
+    expect(outcome.severity).toBe("information");
+    expect(outcome.message).toBeUndefined();
+  });
 });

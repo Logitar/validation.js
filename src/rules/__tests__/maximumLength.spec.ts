@@ -39,4 +39,16 @@ describe("maximumLength", () => {
     expect(outcome.severity).toBe("information");
     expect(outcome.message).toBeUndefined();
   });
+
+  it.concurrent("should return valid when the value is an empty array", () => {
+    const outcome = maximumLength([], 10) as RuleExecutionOutcome;
+    expect(outcome.severity).toBe("information");
+    expect(outcome.message).toBeUndefined();
+  });
+
+  it.concurrent("should return valid when the value is an empty string", () => {
+    const outcome = maximumLength("", 10) as RuleExecutionOutcome;
+    expect(outcome.severity).toBe("information");
+    expect(outcome.message).toBeUndefined();
+  });
 });

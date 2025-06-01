@@ -22,8 +22,14 @@ describe("email", () => {
     expect(outcome.message).toBe("{{name}} must be a valid email address.");
   });
 
-  test.each(["", "test@example.com"])("should return valid when the value is a valid email address", (value) => {
-    const outcome = email(value) as RuleExecutionOutcome;
+  it.concurrent("should return valid when the value is a valid email address", () => {
+    const outcome = email("test@example.com") as RuleExecutionOutcome;
+    expect(outcome.severity).toBe("information");
+    expect(outcome.message).toBeUndefined();
+  });
+
+  it.concurrent("should return valid when the value is an empty string", () => {
+    const outcome = email("") as RuleExecutionOutcome;
     expect(outcome.severity).toBe("information");
     expect(outcome.message).toBeUndefined();
   });

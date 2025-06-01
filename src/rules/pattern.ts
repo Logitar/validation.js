@@ -7,13 +7,18 @@ import type { RuleExecutionOutcome, ValidationRule } from "../types";
  * @returns The result of the validation rule execution.
  */
 const pattern: ValidationRule = (value: unknown, args: unknown): RuleExecutionOutcome => {
+  if (typeof args !== "string" && !(args instanceof RegExp)) {
+    return { severity: "warning", message: "The arguments should be a regular expression." };
+  }
+
   if (typeof value !== "string") {
     return { severity: "error", message: "{{name}} must be a string." };
-  } else if (typeof args !== "string" && !(args instanceof RegExp)) {
-    return { severity: "warning", message: "The arguments should be a regular expression." };
-  } else if (!new RegExp(args).test(value)) {
-    return { severity: "error", message: "{{name}} must match the pattern {{pattern}}." };
+  } else if (value.length > 0) {
+    if (!new RegExp(args).test(value)) {
+      return { severity: "error", message: "{{name}} must match the pattern {{pattern}}." };
+    }
   }
+
   return { severity: "information" };
 };
 

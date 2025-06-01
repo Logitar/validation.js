@@ -11,7 +11,7 @@ describe("minimumLength", () => {
   });
 
   it.concurrent("should return invalid when the value is a string that is too short", () => {
-    const outcome = minimumLength("", true) as RuleExecutionOutcome;
+    const outcome = minimumLength(" ", 10) as RuleExecutionOutcome;
     expect(outcome.severity).toBe("error");
     expect(outcome.message).toBe("{{name}} must be at least {{minimumLength}} character(s) long.");
   });
@@ -36,6 +36,18 @@ describe("minimumLength", () => {
 
   it.concurrent("should return valid when the value is an array that is not too short", () => {
     const outcome = minimumLength([1, 2, 3], 2) as RuleExecutionOutcome;
+    expect(outcome.severity).toBe("information");
+    expect(outcome.message).toBeUndefined();
+  });
+
+  it.concurrent("should return valid when the value is an empty array", () => {
+    const outcome = minimumLength([], 10) as RuleExecutionOutcome;
+    expect(outcome.severity).toBe("information");
+    expect(outcome.message).toBeUndefined();
+  });
+
+  it.concurrent("should return valid when the value is an empty string", () => {
+    const outcome = minimumLength("", 10) as RuleExecutionOutcome;
     expect(outcome.severity).toBe("information");
     expect(outcome.message).toBeUndefined();
   });

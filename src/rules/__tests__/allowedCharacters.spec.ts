@@ -24,6 +24,12 @@ describe("allowedCharacters", () => {
     expect(outcome.message).toBe("{{name}} contains the following prohibited characters: !. Only the following characters are allowed: {{allowedCharacters}}");
   });
 
+  it.concurrent("should return value when then value is an empty string", () => {
+    const outcome = rule("", allowedCharacters) as RuleExecutionOutcome;
+    expect(outcome.severity).toBe("information");
+    expect(outcome.message).toBeUndefined();
+  });
+
   it.concurrent("should return valid when the value only contains allowed characters", () => {
     const outcome = rule("valid", allowedCharacters) as RuleExecutionOutcome;
     expect(outcome.severity).toBe("information");

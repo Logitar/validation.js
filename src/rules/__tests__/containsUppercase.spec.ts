@@ -5,7 +5,7 @@ import { RuleExecutionOutcome } from "../../types";
 
 describe("containsUppercase", () => {
   test.each([undefined, null, {}, [], true, 0, 0n])("should return invalid when the value is not a string", (value) => {
-    const outcome = containsUppercase(value) as RuleExecutionOutcome;
+    const outcome = containsUppercase(value, 10) as RuleExecutionOutcome;
     expect(outcome.severity).toBe("error");
     expect(outcome.message).toBe("{{name}} must be a string.");
   });
@@ -33,6 +33,12 @@ describe("containsUppercase", () => {
     ["AAaa!!11", "2"],
   ])("should return valid when the value contains enough uppercase letters", (value, args) => {
     const outcome = containsUppercase(value, args) as RuleExecutionOutcome;
+    expect(outcome.severity).toBe("information");
+    expect(outcome.message).toBeUndefined();
+  });
+
+  it.concurrent("should return valid when the value is an empty string", () => {
+    const outcome = containsUppercase("", 10) as RuleExecutionOutcome;
     expect(outcome.severity).toBe("information");
     expect(outcome.message).toBeUndefined();
   });
