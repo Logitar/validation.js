@@ -6,7 +6,7 @@ import type { RuleExecutionOutcome, ValidationRule } from "../types";
  * @param args The minimum value.
  * @returns The result of the validation rule execution.
  */
-const minimumValue: ValidationRule = (value: unknown, args: unknown): RuleExecutionOutcome => {
+const minimumValue: ValidationRule = (value: any, args: any): RuleExecutionOutcome => {
   try {
     if (value < args) {
       return { severity: "error", message: "{{name}} must be at least {{minimumValue}}." };
