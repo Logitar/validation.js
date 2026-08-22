@@ -30,9 +30,9 @@ function apply(result: RuleExecutionResult, outcome: RuleExecutionOutcome, optio
   result.severity = outcome.severity;
   // key
   if (!isNullOrWhiteSpace(options.key)) {
-    result.key = options.key;
+    result.key = options.key!;
   } else if (!isNullOrWhiteSpace(outcome.key)) {
-    result.key = outcome.key;
+    result.key = outcome.key!;
   }
   // message
   if (!isNullOrWhiteSpace(options.message)) {
@@ -42,7 +42,7 @@ function apply(result: RuleExecutionResult, outcome: RuleExecutionOutcome, optio
   }
   // name
   if (!isNullOrWhiteSpace(outcome.name)) {
-    result.name = outcome.name;
+    result.name = outcome.name!;
   }
   // value
   if (typeof outcome.value !== "undefined") {
